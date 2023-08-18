@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+  <meta name="referrer" content="never" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Text</title>
+  <script type="module" crossorigin src="./assets/index.9e2388cf.js"></script>
+  <link rel="stylesheet" href="./assets/index.e51247a8.css">
+</head>
+
+<body>
+  <div id="app"></div>
+  
+</body>
+
+</html>
+<script>
+  document.addEventListener('gesturestart', function (event) {
+    event.preventDefault()
+  })
+</script>
+<script>
+
+
+  var time = '' // 用来存上一次按键时间；
+  setTimeout(() => {
+    // 监听返回按钮
+    document.addEventListener('plusready', function () {
+      plus.key.addEventListener('backbutton', function (evt) {
+        var webview = plus.webview.currentWebview();
+        var url = location.hash.split('/')[1];
+        if (url === 'index') { // 处于首页时,实现退出app操作
+          if (new Date() - time < 2000) { // 小于2s,退出程序
+            webview.close();
+          } else { // 重置时间，
+            time = new Date();
+            //再次点击推出
+            showToast('再次点击退出');
+          }
+          return;
+        } else {
+          history.go(-1); // 不满足退出操作，，返回上一页
+        }
+      }, false);
+    })
+  }, 10)
+</script>
